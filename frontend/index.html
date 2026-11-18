@@ -1,0 +1,516 @@
+﻿
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZMASTER | Game Show</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+    <div class="background-glow"></div>
+
+    <main class="container">
+
+        <header class="topbar">
+            <a class="logo" href="#" onclick="showView('home'); return false;">
+                QUIZ<span>MASTER</span>
+                <small>THE ULTIMATE QUIZ SHOW</small>
+            </a>
+
+            <div class="top-label">
+                <span class="live-dot"></span> LET THE GAME BEGIN
+            </div>
+        </header>
+
+        <!-- PORTADA -->
+        <section id="home-view">
+
+            <section class="hero">
+
+                <div class="hero-copy">
+                    <div class="eyebrow">★ EL GRAN CONCURSO DEL CONOCIMIENTO ★</div>
+
+                    <h1>PIENSA.<br><span>RESPONDE.</span><br>¡GANA!</h1>
+
+                    <p>
+                        El conocimiento se convierte en competición.<br>
+                        Forma tu equipo, reta a tus rivales y conquista el podio.
+                    </p>
+
+                    <div class="actions">
+                        <button class="primary" onclick="showView('library')">
+                            ▶ ENTRAR A JUGAR
+                        </button>
+
+                        <button class="secondary" onclick="showView('create')">
+                            + CREAR UN JUEGO
+                        </button>
+                    </div>
+
+                    <div class="mini-stats">
+                        <div>
+                            <strong>3–10</strong>
+                            <span>EQUIPOS</span>
+                        </div>
+                        <div>
+                            <strong>100</strong>
+                            <span>PUNTOS INICIALES</span>
+                        </div>
+                        <div>
+                            <strong>∞</strong>
+                            <span>DIVERSIÓN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stage">
+                    <div class="stage-light light-one"></div>
+                    <div class="stage-light light-two"></div>
+
+                    <div class="screen">
+                        <div class="screen-top">
+                            QUIZMASTER <span>CHAMPIONSHIP</span>
+                        </div>
+
+                        <div class="screen-question">
+                            ¿QUIÉN SERÁ<br>EL CAMPEÓN?
+                        </div>
+
+                        <div class="screen-bottom">
+                            KNOWLEDGE IS POWER
+                        </div>
+                    </div>
+
+                    <div class="podiums">
+                        <div class="podium second">
+                            <div class="avatar">🦊</div>
+                            <b>TEAM 02</b>
+                            <strong>2</strong>
+                        </div>
+
+                        <div class="podium first">
+                            <div class="crown">♛</div>
+                            <div class="avatar">🦁</div>
+                            <b>TEAM 01</b>
+                            <strong>1</strong>
+                        </div>
+
+                        <div class="podium third">
+                            <div class="avatar">🐼</div>
+                            <b>TEAM 03</b>
+                            <strong>3</strong>
+                        </div>
+                    </div>
+
+                    <div class="stage-floor"></div>
+
+                    <div class="floating-score score-left">
+                        +10 <small>POINTS</small>
+                    </div>
+
+                    <div class="floating-score score-right">
+                        100 <small>START</small>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="features">
+                <article class="feature">
+                    <span class="feature-icon">🎮</span>
+                    <div>
+                        <small>01 / SELECCIONA</small>
+                        <h3>ELIGE TU RETO</h3>
+                        <p>Accede a juegos de tu biblioteca.</p>
+                    </div>
+                </article>
+
+                <article class="feature">
+                    <span class="feature-icon">⚡</span>
+                    <div>
+                        <small>02 / COMPITE</small>
+                        <h3>DESAFÍA A TUS RIVALES</h3>
+                        <p>Forma equipos y consigue puntos.</p>
+                    </div>
+                </article>
+
+                <article class="feature">
+                    <span class="feature-icon">🏆</span>
+                    <div>
+                        <small>03 / CONQUISTA</small>
+                        <h3>ALCANZA EL PODIO</h3>
+                        <p>Demuestra quién sabe más.</p>
+                    </div>
+                </article>
+            </section>
+
+        </section>
+
+        <!-- BIBLIOTECA -->
+        <section id="library-view" class="app-view" hidden>
+
+            <div class="section-heading">
+                <div>
+                    <div class="eyebrow">TU COLECCIÓN DE CONCURSOS</div>
+                    <h1 class="page-title">MI <span>BIBLIOTECA</span></h1>
+                    <p class="section-description">
+                        Selecciona, organiza y prepara tus juegos educativos.
+                    </p>
+                </div>
+
+                <button class="primary" onclick="showView('create')">
+                    + NUEVO JUEGO
+                </button>
+            </div>
+
+            <div class="library-toolbar">
+                <input
+                    type="search"
+                    id="game-search"
+                    placeholder="Buscar por título o temática..."
+                    oninput="filterGames()"
+                >
+
+                <button class="secondary" onclick="loadGames()">
+                    ↻ ACTUALIZAR
+                </button>
+            </div>
+
+            <div id="library-message" class="message" aria-live="polite"></div>
+            <div id="games-grid" class="games-grid"></div>
+
+            <button class="secondary back-button" onclick="showView('home')">
+                ← VOLVER A PORTADA
+            </button>
+
+        </section>
+
+        <!-- CREAR JUEGO -->
+        <section id="create-view" class="app-view" hidden>
+
+            <div class="section-heading">
+                <div>
+                    <div class="eyebrow">DISEÑA TU PRÓXIMO CONCURSO</div>
+                    <h1 class="page-title">CREAR <span>JUEGO</span></h1>
+                    <p class="section-description">
+                        Introduce los datos iniciales de tu nuevo juego.
+                    </p>
+                </div>
+            </div>
+
+            <form id="create-game-form" class="game-form">
+
+                <label for="game-title">TÍTULO DEL JUEGO</label>
+                <input
+                    type="text"
+                    id="game-title"
+                    maxlength="200"
+                    placeholder="Ej. El gran reto de historia"
+                    required
+                >
+
+                <label for="game-topic">TEMÁTICA</label>
+                <input
+                    type="text"
+                    id="game-topic"
+                    maxlength="150"
+                    placeholder="Ej. Historia, ciencias, cultura general"
+                >
+
+                <label for="game-difficulty">DIFICULTAD</label>
+                <select id="game-difficulty">
+                    <option>Fácil</option>
+                    <option selected>Media</option>
+                    <option>Difícil</option>
+                    <option>Experto</option>
+                </select>
+
+                <div id="create-message" class="message" aria-live="polite"></div>
+
+                <div class="actions">
+                    <button type="submit" class="primary">
+                        GUARDAR JUEGO
+                    </button>
+
+                    <button
+                        type="button"
+                        class="secondary"
+                        onclick="showView('library')"
+                    >
+                        CANCELAR
+                    </button>
+                </div>
+
+            </form>
+
+        </section>
+
+        <!-- CONFIGURAR PARTIDA -->
+        <section id="setup-view" class="app-view" hidden>
+
+            <div class="section-heading">
+                <div>
+                    <div class="eyebrow">PREPARA A LOS CONTENDIENTES</div>
+                    <h1 class="page-title">
+                        CONFIGURAR <span>PARTIDA</span>
+                    </h1>
+                    <p class="section-description">
+                        Elige los equipos que competirán en este concurso.
+                    </p>
+                </div>
+            </div>
+
+            <div class="setup-game-info">
+                <span>🎯 JUEGO SELECCIONADO</span>
+                <h2 id="setup-game-title">Nombre del juego</h2>
+                <p id="setup-game-topic"></p>
+            </div>
+
+            <div class="team-count-control">
+                <label for="team-count">NÚMERO DE EQUIPOS</label>
+
+                <select id="team-count">
+                    <option value="3">3 equipos</option>
+                    <option value="4">4 equipos</option>
+                    <option value="5">5 equipos</option>
+                    <option value="6">6 equipos</option>
+                    <option value="7">7 equipos</option>
+                    <option value="8">8 equipos</option>
+                    <option value="9">9 equipos</option>
+                    <option value="10">10 equipos</option>
+                </select>
+            </div>
+
+            <div id="teams-setup-grid" class="teams-setup-grid"></div>
+
+            <div class="setup-rules">
+                <div>⭐ <strong>100 puntos</strong> iniciales por equipo</div>
+                <div>⚡ <strong>+5 puntos</strong> para equipos no seleccionados</div>
+                <div>🏆 <strong>+10 / -10 puntos</strong> para equipos objetivo</div>
+            </div>
+
+            <div id="setup-message" class="message" aria-live="polite"></div>
+
+            <div class="actions">
+                <button
+                    type="button"
+                    class="primary"
+                    onclick="startMatch()"
+                >
+                    ▶ COMENZAR PARTIDA
+                </button>
+
+                <button
+                    type="button"
+                    class="secondary"
+                    onclick="showView('library')"
+                >
+                    ← VOLVER A BIBLIOTECA
+                </button>
+            </div>
+
+        </section>
+
+        <!-- TABLERO DE JUEGO -->
+        <section id="game-view" class="app-view" hidden>
+
+            <div class="section-heading">
+                <div>
+                    <div class="eyebrow">QUIZMASTER CHAMPIONSHIP</div>
+                    <h1 class="page-title">
+                        EL <span>CONCURSO</span>
+                    </h1>
+                    <p id="match-game-title" class="section-description">
+                        Partida en curso
+                    </p>
+                </div>
+
+                <div class="game-live-indicator">
+                    <span class="live-dot"></span> EN DIRECTO
+                </div>
+            </div>
+
+            <!-- MARCADOR -->
+            <section class="match-scoreboard">
+                <div class="scoreboard-heading">
+                    <h2>🏆 CLASIFICACIÓN</h2>
+                    <span id="match-progress">PREGUNTA 1</span>
+                </div>
+
+                <div id="match-scoreboard" class="match-scoreboard-grid">
+                    <!-- Los equipos y sus puntuaciones se cargarán desde JavaScript -->
+                </div>
+            </section>
+
+            <!-- TURNO ACTUAL -->
+            <section class="active-team-panel">
+                <div class="active-team-label">⚡ TURNO ACTUAL</div>
+
+                <div class="active-team-information">
+                    <div id="active-team-avatar" class="active-team-avatar">
+                        🦁
+                    </div>
+
+                    <div>
+                        <h2 id="active-team-name">Equipo activo</h2>
+                        <p>¡Es vuestro momento de responder!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PREGUNTA -->
+            <section class="question-panel">
+
+                <div class="question-heading">
+                    <span>❓ PREGUNTA</span>
+                    <span id="question-number">1 / 5</span>
+                </div>
+
+                <div id="question-text" class="question-text">
+                    La pregunta aparecerá aquí.
+                </div>
+
+                <div id="question-image-container" hidden>
+                    <img
+                        id="question-image"
+                        src=""
+                        alt="Imagen de la pregunta"
+                    >
+                </div>
+
+                <div id="answer-options" class="answer-options">
+
+                    <button
+                        type="button"
+                        class="answer-option"
+                        data-option="A"
+                        onclick="selectAnswer('A')"
+                    >
+                        <span class="option-letter">A</span>
+                        <span id="option-a">Respuesta A</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="answer-option"
+                        data-option="B"
+                        onclick="selectAnswer('B')"
+                    >
+                        <span class="option-letter">B</span>
+                        <span id="option-b">Respuesta B</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="answer-option"
+                        data-option="C"
+                        onclick="selectAnswer('C')"
+                    >
+                        <span class="option-letter">C</span>
+                        <span id="option-c">Respuesta C</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="answer-option"
+                        data-option="D"
+                        onclick="selectAnswer('D')"
+                    >
+                        <span class="option-letter">D</span>
+                        <span id="option-d">Respuesta D</span>
+                    </button>
+
+                </div>
+
+            </section>
+
+            <!-- SELECCIÓN DE RIVALES -->
+            <section class="target-panel">
+
+                <div class="target-heading">
+                    <h2>🎯 ELIGE A TUS RIVALES</h2>
+                    <p>
+                        Selecciona uno o varios equipos a los que dirigir tu desafío.
+                    </p>
+                </div>
+
+                <div id="target-team-grid" class="target-team-grid">
+                    <!-- Los equipos rivales se cargarán desde JavaScript -->
+                </div>
+
+                <p class="target-rules">
+                    Los equipos no seleccionados reciben +5 puntos.
+                    Los equipos seleccionados ganan +10 si aciertas o pierden
+                    10 si fallas.
+                </p>
+
+            </section>
+
+            <div id="answer-message" class="message" aria-live="polite"></div>
+
+            <!-- RESULTADO DE LA RESPUESTA -->
+            <section id="answer-result" class="answer-result" hidden>
+
+                <div id="answer-result-title" class="answer-result-title">
+                    RESULTADO
+                </div>
+
+                <p id="correct-answer"></p>
+
+                <div class="explanation-panel">
+                    <h3>💡 EXPLICACIÓN</h3>
+                    <p id="answer-explanation"></p>
+                </div>
+
+                <div class="score-changes-panel">
+                    <h3>📊 CAMBIOS EN EL MARCADOR</h3>
+                    <div id="score-changes"></div>
+                </div>
+
+                <button
+                    type="button"
+                    id="next-question-button"
+                    class="primary"
+                    onclick="nextQuestion()"
+                >
+                    SIGUIENTE PREGUNTA →
+                </button>
+
+            </section>
+
+            <!-- CLASIFICACIÓN FINAL -->
+            <section id="final-results" class="final-results" hidden>
+
+                <div class="eyebrow">FIN DEL CONCURSO</div>
+                <h2>🏆 ¡TENEMOS GANADOR!</h2>
+
+                <div id="winner-announcement"></div>
+
+                <h3>CLASIFICACIÓN FINAL</h3>
+
+                <div id="final-scoreboard"></div>
+
+                <button
+                    type="button"
+                    class="primary"
+                    onclick="showView('library')"
+                >
+                    VOLVER A LA BIBLIOTECA
+                </button>
+
+            </section>
+
+        </section>
+
+        <footer>
+            <span>QUIZMASTER</span> · LEARN · PLAY · WIN
+            <span class="footer-right">EDUCATIONAL GAME EXPERIENCE</span>
+        </footer>
+
+    </main>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

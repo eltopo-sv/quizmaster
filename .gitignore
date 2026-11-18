@@ -1,0 +1,22 @@
+﻿.venv/
+__pycache__/
+*.py[cod]
+
+.env
+.env.*
+!.env.example
+
+*.db
+*.sqlite
+*.sqlite3
+
+storage/
+BACKUP_*/
+.pytest_cache/
+
+# Archivos de pruebas locales y documentación interna
+test_ai_manager.py
+test_gemini.py
+test_gemini_directo.py
+# PROYECTO QUIZMASTER*
+\# PROYECTO QUIZMASTER*

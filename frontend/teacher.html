@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZMASTER | Panel del profesor</title>
+    <link rel="stylesheet" href="/static/css/teacher.css">
+</head>
+
+<body>
+
+    <div class="teacher-layout">
+
+        <!-- MENÚ LATERAL -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-icon">Q</div>
+                <div>
+                    <h2>QUIZMASTER</h2>
+                    <span>Panel educativo</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <span class="sidebar-label">GESTIÓN</span>
+
+                <button class="nav-item active" data-view="dashboard">
+                    <span>▦</span> Resumen
+                </button>
+
+                <button class="nav-item" data-view="all">
+                    <span>▤</span> Todas las preguntas
+                    <span class="nav-counter" id="allQuestionsBadge">0</span>
+                </button>
+
+                <button class="nav-item" data-view="generate">
+                    <span>✦</span> Preparar preguntas con IA
+                </button>
+            </div>
+
+            <div class="sidebar-bottom">
+                <div class="teacher-profile">
+                    <div class="profile-avatar">P</div>
+                    <div>
+                        <strong>Profesor</strong>
+                        <span>Administrador</span>
+                    </div>
+                </div>
+
+                <a href="/" class="back-link">← Volver a QUIZMASTER</a>
+            </div>
+
+        </aside>
+
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <span class="eyebrow">GESTIÓN EDUCATIVA</span>
+                    <h1>Panel del profesor</h1>
+                    <p>Consulta, prepara y edita las preguntas de tus juegos.</p>
+                </div>
+
+                <div class="topbar-status">
+                    <span class="status-dot"></span>
+                    Sistema conectado
+                </div>
+            </header>
+
+
+            <!-- SELECTOR DE JUEGO -->
+            <section class="game-selector">
+                <div>
+                    <label for="gameSelect">JUEGO SELECCIONADO</label>
+                    <select id="gameSelect">
+                        <option value="">Cargando juegos...</option>
+                    </select>
+                </div>
+
+                <button id="refreshBtn" class="refresh-btn">
+                    ↻ Actualizar
+                </button>
+            </section>
+
+
+            <!-- ESTADÍSTICAS -->
+            <section class="stats-grid">
+
+                <article class="stat-card">
+                    <div class="stat-icon purple">▤</div>
+                    <div>
+                        <span>Total de preguntas</span>
+                        <strong id="totalQuestions">0</strong>
+                    </div>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-icon green">✓</div>
+                    <div>
+                        <span>Preguntas disponibles para jugar</span>
+                        <strong id="availableQuestions">0</strong>
+                    </div>
+                </article>
+
+            </section>
+
+
+            <!-- CONTENIDO DINÁMICO -->
+            <section class="questions-section">
+
+                <div class="section-header">
+                    <div>
+                        <span class="eyebrow">BANCO DE PREGUNTAS</span>
+                        <h2 id="sectionTitle">Resumen de preguntas</h2>
+                        <p id="sectionDescription">
+                            Gestiona todas las preguntas de tus juegos.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="messageArea"></div>
+
+                <div id="questionsContainer">
+                    <div class="loading-state">
+                        Selecciona un juego para comenzar.
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- PREPARAR PREGUNTAS CON IA -->
+            <section id="generateSection" class="questions-section" hidden>
+
+                <div class="section-header">
+                    <div>
+                        <span class="eyebrow">GENERACIÓN INTELIGENTE</span>
+                        <h2>Preparar preguntas con IA</h2>
+                        <p>
+                            Sube un documento y genera preguntas basadas en su contenido.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="ai-generator-card">
+
+                    <div class="ai-generator-intro">
+                        <span class="ai-generator-icon">✦</span>
+                        <div>
+                            <h3>Generador de preguntas</h3>
+                            <p>
+                                La IA analizará el documento y preparará preguntas
+                                tipo test con cuatro posibles respuestas.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="ai-form">
+
+                        <div class="ai-form-group">
+                            <label for="documentFile">DOCUMENTO DE CONTENIDO</label>
+                            <input
+                                type="file"
+                                id="documentFile"
+                                accept=".pdf,.docx"
+                            >
+                            <small>Formatos admitidos: PDF y DOCX. Máximo 10 MB.</small>
+                        </div>
+
+                        <div class="ai-form-row">
+
+                            <div class="ai-form-group">
+                                <label for="questionNumber">NÚMERO DE PREGUNTAS</label>
+                                <select id="questionNumber">
+                                    <option value="5">5 preguntas</option>
+                                    <option value="10" selected>10 preguntas</option>
+                                    <option value="15">15 preguntas</option>
+                                    <option value="20">20 preguntas</option>
+                                    <option value="25">25 preguntas</option>
+                                    <option value="30">30 preguntas</option>
+                                    <option value="40">40 preguntas</option>
+                                    <option value="50">50 preguntas</option>
+                                </select>
+                            </div>
+
+                            <div class="ai-form-group">
+                                <label for="questionDifficulty">DIFICULTAD</label>
+                                <select id="questionDifficulty">
+                                    <option value="facil">Fácil</option>
+                                    <option value="media" selected>Media</option>
+                                    <option value="dificil">Difícil</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="ai-generator-info">
+                            <span>✓</span>
+                            Las preguntas se incorporarán directamente al banco
+                            del juego seleccionado.
+                        </div>
+
+                        <button type="button" id="generateQuestionsBtn" class="ai-generate-btn">
+                            ✦ Generar preguntas con IA
+                        </button>
+
+                        <div id="generationMessage" aria-live="polite"></div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="/static/js/teacher.js"></script>
+
+</body>
+</html>
